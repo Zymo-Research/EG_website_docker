@@ -1,32 +1,65 @@
 FROM ubuntu:latest
 MAINTAINER Hunter Chung <hchung@zymoresearch.com>
- 
+
+# Install Scipy stack
+
+# From https://github.com/ogrisel/docker-openblas
+ADD openblas.conf /etc/ld.so.conf.d/openblas.conf
+
+# From https://github.com/ogrisel/docker-sklearn-openblas
+ADD numpy-site.cfg /tmp/numpy-site.cfg
+ADD scipy-site.cfg /tmp/scipy-site.cfg
+
+ADD build_scipy_stack.sh /tmp/build_scipy_stack.sh
+RUN bash /tmp/build_scipy_stack.sh
+
+## Extremely basic test of install
+RUN python2 -c "import matplotlib, scipy, numpy, pandas, sklearn, seaborn, yt, patsy, sympy, IPython, statsmodels"
+RUN python3 -c "import matplotlib, scipy, numpy, pandas, sklearn, seaborn, yt, patsy, sympy, IPython"
+
+# Clean up from build
+RUN rm -f /tmp/build_scipy_stack.sh /tmp/numpy-site.cfg /tmp/scipy-site.cfg
+
 RUN sed -i.dist 's,universe$,universe multiverse,' /etc/apt/sources.list
-RUN apt-get update -qq
-RUN apt-get dist-upgrade -y
- 
-RUN apt-get install -qqy git vim wget pigz
-# Python related
-RUN apt-get install -qqy python-dev python-pip
-# AWS related
-RUN apt-get install -qqy s3cmd ec2-api-tools ec2-ami-tools
-# database related
-RUN apt-get install -qqy mysql-client sqlite3
-# web server related
-RUN apt-get install -qqy apache2 libapache2-mod-wsgi
-# Others
-RUN apt-get install -qqy libfreetype6-dev libpng-dev
-# Install Python packages
-RUN apt-get install -qqy python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
- 
+RUN apt-get update && apt-get dist-upgrade -y -q \
+    vim \
+    wget \
+    pigz \
+    # Python related.
+    python-dev \
+    python-pip \
+    ipython \
+    ipython-notebook \
+    python-nose \
+    # AWS related
+    s3cmd \
+    ec2-api-tools \
+    ec2-ami-tools \
+    # database related
+    mysql-client \
+    sqlite3 \
+    # web server related
+    apache2 \
+    libapache2-mod-wsgi \
+    # Others
+    libfreetype6-dev \
+    libpng-dev
+
 # pip install
-RUN pip install biopython xlwt xlrd django django-taggit django-social-auth natsort
- 
+RUN pip install \
+    biopython \
+    xlwt \
+    xlrd \
+    django \
+    django-taggit \
+    django-social-auth \
+    natsort
+
 # Set up apache2
-ADD https://s3.amazonaws.com/epiquest/website_templates/000-default /etc/apache2/sites-enabled/
- 
- 
+ADD https://s3.amazonaws.com/epiquest/website_templates/000-default.conf /etc/apache2/sites-enabled/
+
+
 expose 80
- 
+
 # Run apache.
 CMD /usr/sbin/apache2ctl -D FOREGROUND
