@@ -23,11 +23,13 @@ sqlite3 \
 apache2 \
 libapache2-mod-wsgi \
 # Others
+libmysqlclient-dev \
 libfreetype6-dev \
 libpng-dev
 
 # pip install
 RUN pip2 install \
+MySQL-python \
 biopython \
 xlwt \
 xlrd \
