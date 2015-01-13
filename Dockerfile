@@ -22,6 +22,7 @@ sqlite3 \
 # web server related
 apache2 \
 libapache2-mod-wsgi \
+libevent-dev \
 # Others
 libmysqlclient-dev \
 libfreetype6-dev \
@@ -36,7 +37,8 @@ xlrd \
 django \
 django-taggit \
 django-social-auth \
-natsort
+natsort \
+python-memcached
 
 
 # Set up apache2
