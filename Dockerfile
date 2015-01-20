@@ -38,8 +38,12 @@ django \
 django-taggit \
 django-social-auth \
 natsort \
-python-memcached
+python-memcached \
+boto \
+pysam
 
+# Add python path to ~/.bashrc
+RUN bash -c "echo export PYTHONPATH=${PYTHONPATH}:/var/www/EpiQuest_py >> ~/.bashrc"
 
 # Set up apache2
 ADD https://s3.amazonaws.com/epiquest/website_templates/000-default.conf /etc/apache2/sites-enabled/
