@@ -2,20 +2,21 @@ FROM ipython/scipystack
 MAINTAINER Hunter Chung <hchung@zymoresearch.com>
 
 RUN sed -i.dist 's,universe$,universe multiverse,' /etc/apt/sources.list
-RUN apt-get update && apt-get dist-upgrade -y -q \
+RUN apt-get update &&
+apt-get dist-upgrade -y -q \
 vim \
 wget \
 pigz \
-# Python related.
-python-dev \
-python-pip \
-ipython \
-ipython-notebook \
-python-nose \
+# # Python related.
+# python-dev \
+# python-pip \
+# ipython \
+# ipython-notebook \
+# python-nose \
 # AWS related
 s3cmd \
-ec2-api-tools \
-ec2-ami-tools \
+# ec2-api-tools \
+# ec2-ami-tools \
 # database related
 mysql-client \
 sqlite3 \
@@ -27,6 +28,8 @@ libevent-dev \
 libmysqlclient-dev \
 libfreetype6-dev \
 libpng-dev
+
+RUN apt-get clean autoclean && apt-get autoremove -y
 
 # pip install
 RUN pip2 install \
@@ -42,8 +45,7 @@ python-memcached \
 boto \
 pysam
 
-# Add python path to ~/.bashrc
-RUN bash -c "echo export PYTHONPATH=${PYTHONPATH}:/var/www/EpiQuest_py >> ~/.bashrc"
+ENV PYTHONPATH=${PYTHONPATH}:/var/www/EpiQuest_py
 
 # Set up apache2
 ADD https://s3.amazonaws.com/epiquest/website_templates/000-default.conf /etc/apache2/sites-enabled/
