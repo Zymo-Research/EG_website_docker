@@ -2,8 +2,7 @@ FROM ipython/scipystack
 MAINTAINER Hunter Chung <hchung@zymoresearch.com>
 
 RUN sed -i.dist 's,universe$,universe multiverse,' /etc/apt/sources.list
-RUN apt-get update &&
-apt-get dist-upgrade -y -q \
+RUN apt-get update && apt-get dist-upgrade -y -q \
 vim \
 wget \
 pigz \
