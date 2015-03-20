@@ -26,7 +26,7 @@ apt-get clean autoclean && \
 apt-get autoremove -y
 
 # Install s3cmd.
-RUN wget https://github.com/s3tools/s3cmd/releases/download/v1.5.2/s3cmd-1.5.2.tar.gz && \
+RUN wget http://github.com/s3tools/s3cmd/releases/download/v1.5.2/s3cmd-1.5.2.tar.gz && \
 tar zxvf s3cmd-1.5.2.tar.gz && \
 mv s3cmd-1.5.2 /usr/share/ && \
 ln -s /usr/share/s3cmd-1.5.2 /usr/share/s3cmd
