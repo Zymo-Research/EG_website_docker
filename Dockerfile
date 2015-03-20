@@ -1,5 +1,5 @@
-# FROM debian:wheezy
-FROM python:2-wheezy
+FROM debian:wheezy
+# FROM python:2-wheezy
 MAINTAINER Hunter Chung <hchung@zymoresearch.com>
 
 RUN sed -i.dist 's,universe$,universe multiverse,' /etc/apt/sources.list
@@ -9,21 +9,14 @@ apt-get install -yq \
     vim \
     wget \
     pigz \
-    # # Python related.
-    # python-dev \
-    # python-pip \
+    # Python related.
+    python-dev \
+    python-pip \
     # database related
     mysql-client \
     libmysqlclient-dev \
     sqlite3 \
-    # # web server related
-    # apache2 \
-    # libapache2-mod-wsgi \
-    # libevent-dev \
-    # # others
-    # libfreetype6-dev \
-    # libpng-dev \
-    ca-certificates
+    ca-certificates \
     --no-install-recommends && \
 rm -rf /var/lib/apt/lists/* && \
 apt-get clean autoclean && \
@@ -37,11 +30,7 @@ ln -s /usr/share/s3cmd-1.5.2 /usr/share/s3cmd
 
 # pip install
 RUN pip install \
-# MySQL-python \
 mysqlclient \
-# biopython \
-# xlwt \
-# xlrd \
 django \
 django-taggit \
 django-social-auth \
