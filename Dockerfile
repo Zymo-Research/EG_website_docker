@@ -9,6 +9,7 @@ apt-get install -yq \
     vim \
     wget \
     pigz \
+    gcc \ 
     # Python related.
     python-dev \
     python-pip \
