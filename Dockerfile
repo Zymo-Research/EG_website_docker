@@ -1,28 +1,31 @@
-FROM debian:wheezy
+# FROM debian:wheezy
+FROM python:2-wheezy
 MAINTAINER Hunter Chung <hchung@zymoresearch.com>
 
 RUN sed -i.dist 's,universe$,universe multiverse,' /etc/apt/sources.list
 RUN apt-get update && \
-apt-get dist-upgrade -y -q && \
+# apt-get dist-upgrade -y -q && \
 apt-get install -yq \
     vim \
     wget \
     pigz \
-    # Python related.
-    python-dev \
-    python-pip \
+    # # Python related.
+    # python-dev \
+    # python-pip \
     # database related
     mysql-client \
-    sqlite3 \
-    # web server related
-    apache2 \
-    libapache2-mod-wsgi \
-    libevent-dev \
-    # Others
     libmysqlclient-dev \
-    libfreetype6-dev \
-    libpng-dev \
-    ca-certificates && \
+    sqlite3 \
+    # # web server related
+    # apache2 \
+    # libapache2-mod-wsgi \
+    # libevent-dev \
+    # # others
+    # libfreetype6-dev \
+    # libpng-dev \
+    ca-certificates
+    --no-install-recommends && \
+rm -rf /var/lib/apt/lists/* && \
 apt-get clean autoclean && \
 apt-get autoremove -y
 
@@ -34,10 +37,11 @@ ln -s /usr/share/s3cmd-1.5.2 /usr/share/s3cmd
 
 # pip install
 RUN pip install \
-MySQL-python \
+# MySQL-python \
+mysqlclient \
 # biopython \
-xlwt \
-xlrd \
+# xlwt \
+# xlrd \
 django \
 django-taggit \
 django-social-auth \
@@ -46,12 +50,16 @@ python-memcached \
 boto \
 numpy
 
-ENV PYTHONPATH=${PYTHONPATH}:/var/www/EpiQuest_py
+VOLUME /usr/share/EpiQuest_py
+ENV PYTHONPATH=${PYTHONPATH}:/usr/share/EpiQuest_py
 
-# Set up apache2
-ADD https://s3.amazonaws.com/epiquest/website_templates/000-default.conf /etc/apache2/sites-enabled/
+# # Set up apache2
+# ADD https://s3.amazonaws.com/epiquest/website_templates/000-default.conf /etc/apache2/sites-enabled/
+#
+# expose 80
 
-expose 80
+# # Run apache.
+# CMD /usr/sbin/apache2ctl -D FOREGROUND
 
-# Run apache.
-CMD /usr/sbin/apache2ctl -D FOREGROUND
+EXPOSE 8000
+CMD  python /usr/share/EpiQuest_py/manage.py runserver 0.0.0.0:8000
