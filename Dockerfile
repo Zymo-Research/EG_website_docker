@@ -21,7 +21,8 @@ apt-get install -yq \
     # Others
     libmysqlclient-dev \
     libfreetype6-dev \
-    libpng-dev && \
+    libpng-dev \
+    ca-certificates && \
 apt-get clean autoclean && \
 apt-get autoremove -y
 
