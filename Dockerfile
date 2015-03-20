@@ -2,7 +2,7 @@ FROM debian:wheezy
 MAINTAINER Hunter Chung <hchung@zymoresearch.com>
 
 RUN sed -i.dist 's,universe$,universe multiverse,' /etc/apt/sources.list
-RUN apt-get update &&
+RUN apt-get update && \
 apt-get dist-upgrade -y -q && \
 apt-get install -yq \
     vim \
