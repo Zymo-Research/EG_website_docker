@@ -2,7 +2,9 @@ FROM debian:wheezy
 MAINTAINER Hunter Chung <hchung@zymoresearch.com>
 
 RUN sed -i.dist 's,universe$,universe multiverse,' /etc/apt/sources.list
-RUN apt-get update && apt-get dist-upgrade -y -q \
+RUN apt-get update &&
+apt-get dist-upgrade -y -q && \
+apt-get install -yq \
     vim \
     wget \
     pigz \
@@ -24,10 +26,10 @@ apt-get clean autoclean && \
 apt-get autoremove -y
 
 # Install s3cmd.
-RUN wget https://github.com/s3tools/s3cmd/releases/download/v1.5.2/s3cmd-1.5.2.tar.gz
-RUN tar zxvf s3cmd-1.5.2.tar.gz
-RUN mv s3cmd-1.5.2 /usr/share/
-RUN ln -s /usr/share/s3cmd-1.5.2 /usr/share/s3cmd
+RUN wget https://github.com/s3tools/s3cmd/releases/download/v1.5.2/s3cmd-1.5.2.tar.gz && \
+tar zxvf s3cmd-1.5.2.tar.gz && \
+mv s3cmd-1.5.2 /usr/share/ && \
+ln -s /usr/share/s3cmd-1.5.2 /usr/share/s3cmd
 
 # pip install
 RUN pip install \
