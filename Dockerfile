@@ -9,7 +9,7 @@ apt-get install -yq \
     vim \
     wget \
     pigz \
-    gcc \ 
+    gcc \
     # Python related.
     python-dev \
     python-pip \
@@ -31,14 +31,15 @@ ln -s /usr/share/s3cmd-1.5.2 /usr/share/s3cmd
 
 # pip install
 RUN pip install \
-mysqlclient \
-django \
-django-taggit \
-django-social-auth \
-natsort \
-python-memcached \
-boto \
-numpy
+    setuptools \
+    mysqlclient \
+    django \
+    django-taggit \
+    django-social-auth \
+    natsort \
+    python-memcached \
+    boto \
+    numpy
 
 VOLUME /usr/share/EpiQuest_py
 ENV PYTHONPATH=${PYTHONPATH}:/usr/share/EpiQuest_py
