@@ -43,6 +43,7 @@ RUN pip install \
 
 VOLUME /usr/share/EpiQuest_py
 ENV PYTHONPATH=${PYTHONPATH}:/usr/share/EpiQuest_py
+ENV PATH=${PATH}:/usr/share/s3cmd
 
 # # Set up apache2
 # ADD https://s3.amazonaws.com/epiquest/website_templates/000-default.conf /etc/apache2/sites-enabled/
