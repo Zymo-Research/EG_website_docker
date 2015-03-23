@@ -31,6 +31,7 @@ ln -s /usr/share/s3cmd-1.5.2 /usr/share/s3cmd
 
 # pip install
 RUN pip install \
+    python-dateutil \
     setuptools \
     mysqlclient \
     django \
