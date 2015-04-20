@@ -18,6 +18,9 @@ apt-get install -yq \
     libmysqlclient-dev \
     sqlite3 \
     ca-certificates \
+    groff \ 
+    less \
+    curl \
     --no-install-recommends && \
 rm -rf /var/lib/apt/lists/* && \
 apt-get clean autoclean && \
