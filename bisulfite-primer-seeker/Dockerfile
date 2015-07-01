@@ -25,8 +25,8 @@ RUN pip install \
     requests
 
 # RUN optional_installs.sh
-ADD install_primer3.sh install_primer3.sh
-RUN install_primer3.sh
+ADD install_primer3.sh /tmp/install_primer3.sh
+RUN /tmp/install_primer3.sh
 
 VOLUME /scripts
 ENV PYTHONPATH=${PYTHONPATH}:/scripts
