@@ -25,12 +25,14 @@ RUN pip install \
     requests
 
 # RUN optional_installs.sh
+ADD install_primer3.sh install_primer3.sh
 RUN install_primer3.sh
 
 VOLUME /scripts
 ENV PYTHONPATH=${PYTHONPATH}:/scripts
 ENV PATH=${PATH}:/usr/share/s3cmd:/usr/share/primer3/src
 ENV DJANGO_SETTINGS_MODULE=Bisulfite_Primer_Seeker.settings
+ENV C_FORCE_ROOT=true
 
 EXPOSE 8000
 CMD  python /scripts/manage.py runserver 0.0.0.0:8000

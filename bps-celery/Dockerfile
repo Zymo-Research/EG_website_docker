@@ -2,6 +2,8 @@ FROM celery
 
 MAINTAINER Hunter Chung <hchung@zymoresearch.com>
 
+USER root
+
 RUN apt-get update && \
 apt-get install -yq \
     build-essential \
@@ -29,5 +31,5 @@ ENV PYTHONPATH=${PYTHONPATH}:/scripts
 ENV PATH=${PATH}:/usr/share/s3cmd:/usr/share/primer3/src
 ENV DJANGO_SETTINGS_MODULE=Bisulfite_Primer_Seeker.settings
 
-EXPOSE 8000
+
 CMD ["celery", "worker"]
