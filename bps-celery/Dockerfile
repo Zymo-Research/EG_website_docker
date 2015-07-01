@@ -1,11 +1,10 @@
-FROM hunterchung/eg-website-docker
+FROM celery
 
 MAINTAINER Hunter Chung <hchung@zymoresearch.com>
 
 RUN apt-get update && \
 apt-get install -yq \
     build-essential \
-    rabbitmq-server \
     libxml2-dev \
     libxslt-dev && \
 rm -rf /var/lib/apt/lists/* && \
@@ -13,7 +12,7 @@ apt-get clean autoclean && \
 apt-get autoremove -y
 
 RUN pip install \
-    celery \
+    django \
     biopython \
     xlwt \
     six \
@@ -23,8 +22,6 @@ RUN pip install \
     lxml \
     beautifulsoup4 \
     requests
-
-# RUN optional_installs.sh
 RUN install_primer3.sh
 
 VOLUME /scripts
@@ -33,4 +30,4 @@ ENV PATH=${PATH}:/usr/share/s3cmd:/usr/share/primer3/src
 ENV DJANGO_SETTINGS_MODULE=Bisulfite_Primer_Seeker.settings
 
 EXPOSE 8000
-CMD  python /scripts/manage.py runserver 0.0.0.0:8000
+CMD ["celery", "worker"]

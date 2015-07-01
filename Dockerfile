@@ -4,21 +4,18 @@ MAINTAINER Hunter Chung <hchung@zymoresearch.com>
 
 RUN sed -i.dist 's,universe$,universe multiverse,' /etc/apt/sources.list
 RUN apt-get update && \
-# apt-get dist-upgrade -y -q && \
 apt-get install -yq \
     vim \
     wget \
     pigz \
     gcc \
-    # Python related.
     python-dev \
     python-pip \
-    # database related
     mysql-client \
     libmysqlclient-dev \
     sqlite3 \
     ca-certificates \
-    groff \ 
+    groff \
     less \
     curl \
     --no-install-recommends && \

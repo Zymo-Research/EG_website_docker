@@ -1,0 +1,15 @@
+bps-rabbit:
+    image: rabbitmq
+    environment:
+        - RABBITMQ_NODENAME=bps-rabbit
+
+bps-celery:
+    image: celery
+    links:
+        - bps-rabbit:rabbit
+    volumes:
+        - /Users/hchung/git/Bisulfite_Primer_Seeker:/scripts
+    environment:
+        - PATH=/usr/share/s3cmd:/usr/share/primer3/src
+        - DJANGO_SETTINGS_MODULE=Bisulfite_Primer_Seeker.settings
+        - PYTHONPATH=/scripts
