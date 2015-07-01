@@ -50,13 +50,5 @@ ENV PYTHONPATH=${PYTHONPATH}:/usr/share/EpiQuest_py
 ENV PATH=${PATH}:/usr/share/s3cmd
 ENV TERM=xterm
 
-# # Set up apache2
-# ADD https://s3.amazonaws.com/epiquest/website_templates/000-default.conf /etc/apache2/sites-enabled/
-#
-# expose 80
-
-# # Run apache.
-# CMD /usr/sbin/apache2ctl -D FOREGROUND
-
 EXPOSE 8000
 CMD  python /usr/share/EpiQuest_py/manage.py runserver 0.0.0.0:8000
