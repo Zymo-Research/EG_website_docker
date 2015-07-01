@@ -26,6 +26,7 @@ RUN pip install \
 
 # RUN optional_installs.sh
 ADD install_primer3.sh /tmp/install_primer3.sh
+RUN chmod +x /tmp/install_primer3.sh
 RUN /tmp/install_primer3.sh
 
 VOLUME /scripts
