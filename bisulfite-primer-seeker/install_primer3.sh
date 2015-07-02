@@ -6,4 +6,4 @@ cd primer3-2.3.6/src
 make all
 ln -s /usr/share/primer3-2.3.6 /usr/share/primer3
 
-# celery --app=tools.bpd_tasks --loglevel=debug worker
+# celery --app=tools.bpd_tasks --loglevel=debug -b amqp://bps-rabbit:5672 worker
