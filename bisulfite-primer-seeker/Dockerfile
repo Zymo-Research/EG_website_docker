@@ -7,12 +7,17 @@ apt-get install -yq \
     build-essential \
     rabbitmq-server \
     libxml2-dev \
-    libxslt-dev && \
+    libxslt-dev \
+    geoip-bin \
+    libgeoip-dev \
+    libgeoip1 && \
 rm -rf /var/lib/apt/lists/* && \
 apt-get clean autoclean && \
 apt-get autoremove -y
 
-RUN pip install \
+RUN pip install -U \
+    django==1.6 \
+    geoip \
     celery \
     biopython \
     xlwt \
