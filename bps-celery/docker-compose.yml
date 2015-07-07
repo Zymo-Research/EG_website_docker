@@ -4,12 +4,23 @@ bps-rabbit:
         - RABBITMQ_NODENAME=bps-rabbit
 
 bps-celery:
-    image: celery
+    image: hunterchung/bisulfite-primer-seeker-docker
     links:
-        - bps-rabbit:rabbit
+        - bps-rabbit:bps-rabbit
     volumes:
         - /Users/hchung/git/Bisulfite_Primer_Seeker:/scripts
     environment:
         - PATH=/usr/share/s3cmd:/usr/share/primer3/src
         - DJANGO_SETTINGS_MODULE=Bisulfite_Primer_Seeker.settings
         - PYTHONPATH=/scripts
+    command: celery --app=tools.bpd_tasks --loglevel=debug -b amqp://bps-rabbit:5672 worker
+
+Bisulfite_Primer_Seeker:
+    image: hunterchung/bisulfite-primer-seeker-docker
+    links:
+        - bps-rabbit:bps-rabbit
+    volumes:
+        - /Users/hchung/git/Bisulfite_Primer_Seeker:/scripts
+    ports:
+        - "8000:8000"
+    command: python /scripts/manage.py runserver 0.0.0.0:8000

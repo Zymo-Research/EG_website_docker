@@ -15,8 +15,8 @@ rm -rf /var/lib/apt/lists/* && \
 apt-get clean autoclean && \
 apt-get autoremove -y
 
-RUN pip install -U \
-    django==1.6 \
+RUN pip install -U django==1.6
+RUN pip install \
     geoip \
     celery \
     biopython \
