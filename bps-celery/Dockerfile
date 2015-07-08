@@ -1,35 +1,13 @@
-FROM celery
-
+FROM hunterchung/eg-website-docker
 MAINTAINER Hunter Chung <hchung@zymoresearch.com>
 
-USER root
+ADD install_primer3.sh /tmp/install_primer3.sh
+RUN chmod +x /tmp/install_primer3.sh
+RUN /tmp/install_primer3.sh
 
-RUN apt-get update && \
-apt-get install -yq \
-    build-essential \
-    libxml2-dev \
-    libxslt-dev && \
-rm -rf /var/lib/apt/lists/* && \
-apt-get clean autoclean && \
-apt-get autoremove -y
-
-RUN pip install \
-    django \
-    biopython \
-    xlwt \
-    six \
-    distribute \
-    pysam==0.7.8 \
-    inlinestyler \
-    lxml \
-    beautifulsoup4 \
-    requests
-RUN install_primer3.sh
-
-VOLUME /scripts
-ENV PYTHONPATH=${PYTHONPATH}:/scripts
+ENV C_FORCE_ROOT=true
 ENV PATH=${PATH}:/usr/share/s3cmd:/usr/share/primer3/src
 ENV DJANGO_SETTINGS_MODULE=Bisulfite_Primer_Seeker.settings
+ENV PYTHONPATH=${PYTHONPATH}:/scripts
 
-
-CMD ["celery", "worker"]
+CMD celery --app=tools.bpd_tasks -b amqp://epidata.zymoresearch.com:5672 worker
