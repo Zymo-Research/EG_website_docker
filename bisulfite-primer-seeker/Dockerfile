@@ -27,7 +27,8 @@ RUN pip install \
     inlinestyler \
     lxml \
     beautifulsoup4 \
-    requests
+    requests \
+    stopit
 
 # RUN optional_installs.sh
 ADD install_primer3.sh /tmp/install_primer3.sh
