@@ -16,7 +16,7 @@ apt-get clean autoclean && \
 apt-get autoremove -y
 
 RUN pip install -U django==1.6
-RUN pip install \
+RUN pip install -U \
     geoip \
     celery \
     biopython \
@@ -28,9 +28,10 @@ RUN pip install \
     lxml \
     beautifulsoup4 \
     requests \
-    stopit
+    stopit \
+    setuptools \
+    pip
 
-RUN pip install -U pip
 RUN pip2 install -U \
     mock \
     pandas
