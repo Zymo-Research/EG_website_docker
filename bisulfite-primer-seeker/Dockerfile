@@ -22,7 +22,6 @@ RUN pip install -U \
     biopython \
     xlwt \
     six \
-    distribute \
     pysam==0.7.8 \
     inlinestyler \
     lxml \
