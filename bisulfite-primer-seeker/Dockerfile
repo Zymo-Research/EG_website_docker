@@ -30,6 +30,11 @@ RUN pip install \
     requests \
     stopit
 
+RUN pip install -U pip
+RUN pip2 install -U \
+    mock \
+    pandas
+
 # RUN optional_installs.sh
 ADD install_primer3.sh /tmp/install_primer3.sh
 RUN chmod +x /tmp/install_primer3.sh
@@ -40,7 +45,7 @@ ENV PYTHONPATH=${PYTHONPATH}:/scripts
 ENV PATH=${PATH}:/usr/share/s3cmd:/usr/share/primer3/src
 ENV DJANGO_SETTINGS_MODULE=Bisulfite_Primer_Seeker.settings
 ENV C_FORCE_ROOT=true
-ENV PRIMER3_PATH=/usr/share/primer3
+ENV PRIMER3_PATH=/usr/share/primer3/src
 
 EXPOSE 8000
 CMD  python /scripts/manage.py runserver 0.0.0.0:8000
