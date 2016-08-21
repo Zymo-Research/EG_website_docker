@@ -30,7 +30,7 @@ RUN pip install -U \
     lxml \
     beautifulsoup4 \
     requests \
-    stopit \
+    subprocess32 \
     pip
 
 RUN pip2 install -U \
