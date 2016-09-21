@@ -18,10 +18,10 @@ apt-get autoremove -y
 RUN pip install -U \
     django==1.6 \
     setuptools
-    
+
 RUN pip install -U \
     geoip \
-    celery \
+    celeryy==3.1.18 \
     biopython \
     xlwt \
     six \
@@ -31,7 +31,8 @@ RUN pip install -U \
     beautifulsoup4 \
     requests \
     stopit \
-    pip
+    pip \
+    kombu==3.0.36
 
 RUN pip2 install -U \
     mock \
