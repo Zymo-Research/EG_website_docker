@@ -32,6 +32,7 @@ RUN pip install -U \
     requests \
     stopit \
     pip \
+    subprocess32 \
     kombu==3.0.36
 
 RUN pip2 install -U \
