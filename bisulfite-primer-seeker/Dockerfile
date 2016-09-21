@@ -21,7 +21,7 @@ RUN pip install -U \
 
 RUN pip install -U \
     geoip \
-    celeryy==3.1.18 \
+    celery==3.1.18 \
     biopython \
     xlwt \
     six \
