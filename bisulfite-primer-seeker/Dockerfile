@@ -33,7 +33,10 @@ RUN pip install -U \
     stopit \
     pip \
     subprocess32 \
-    kombu==3.0.26
+    kombu==3.0.26 \
+    boto3 \
+    xlrd \
+    xlwt
 
 RUN pip2 install -U \
     mock \
