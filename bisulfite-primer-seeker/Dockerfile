@@ -35,8 +35,7 @@ RUN pip install -U \
     subprocess32 \
     kombu==3.0.26 \
     boto3 \
-    xlrd \
-    xlwt
+    xlrd
 
 RUN pip2 install -U \
     mock \
