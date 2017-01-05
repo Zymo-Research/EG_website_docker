@@ -35,7 +35,8 @@ RUN pip install -U \
     subprocess32 \
     kombu==3.0.26 \
     boto3 \
-    xlrd
+    xlrd \
+    openpyxl
 
 RUN pip2 install -U \
     mock \
