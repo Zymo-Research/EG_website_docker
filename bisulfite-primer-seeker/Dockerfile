@@ -15,9 +15,15 @@ rm -rf /var/lib/apt/lists/* && \
 apt-get clean autoclean && \
 apt-get autoremove -y
 
-RUN pip install -U \
-    django==1.6 \
-    setuptools
+RUN pip install -U pysam==0.7.8
+
+RUN pip install -U pip
+
+RUN hash -r
+
+RUN pip install -U pyopenssl ndg-httpsclient pyasn1
+
+RUN pip install -U django==1.6
 
 RUN pip install -U \
     geoip \
@@ -25,7 +31,6 @@ RUN pip install -U \
     biopython \
     xlwt \
     six \
-    pysam==0.7.8 \
     inlinestyler \
     lxml \
     beautifulsoup4 \
